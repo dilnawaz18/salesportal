@@ -46,6 +46,7 @@ class CustomersController extends Controller
         $customer->name=$request->input('name');
         $customer->web_url=$request->input('web_url');
         $customer->img_url="Abc";
+        $customer->user_id=auth()->user()->id;
         $customer->save();
         return redirect('/customers')->with('success','Post Created');
 

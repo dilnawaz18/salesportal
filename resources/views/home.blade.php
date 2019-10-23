@@ -13,8 +13,33 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    You are logged in!
+                    <a href="/customers/create" class="btn btn-primary">Create a new Customer</a> <hr><br>
+                    <h1> Customers</h1>
+                        @if(count($customers)>0)
+                            <table class="table-striped table">
+                                <tr>
+                                    <th>Name</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                {{--                            @if(is_array($customers))--}}
+                                @foreach($customers as $customer)
+                                    <tr>
+                                        <td>{{$customer->name}}</td>
+                                        <td><a href="/customers/{{$customer->id}}/edit" class="btn btn-primary">Edittt</a></td>
+                                        <td>
+                                            {!!Form::open(['action'=>['CustomersController@destroy', $customer->id],'method'=>'POST','class'=>'btn btn-primary,pull-right'])!!}
+                                            {{Form::hidden('_method','DELETE')}}
+                                            {{Form::submit('Delete the Post',['class'=>'btn btn-danger'])}}
+                                            {!! Form::close() !!}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                {{--                            @endif--}}
+                            </table>
+                        @else
+                            <p> No Customers</p>
+                        @endif
                 </div>
             </div>
         </div>
